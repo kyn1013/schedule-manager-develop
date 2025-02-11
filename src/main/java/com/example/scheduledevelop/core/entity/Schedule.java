@@ -1,6 +1,7 @@
 package com.example.scheduledevelop.core.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -22,6 +23,7 @@ public class Schedule extends BaseEntity{
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
     public Schedule(String title, String content) {
         this.title = title;
         this.content = content;
@@ -32,6 +34,11 @@ public class Schedule extends BaseEntity{
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public void updateSchedule(String title, String content){
+        this.title = title;
+        this.content = content;
     }
 
 }
