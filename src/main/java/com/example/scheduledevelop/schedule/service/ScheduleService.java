@@ -5,11 +5,15 @@ import com.example.scheduledevelop.core.common.exception.ScheduleNotFoundExcepti
 import com.example.scheduledevelop.core.entity.Member;
 import com.example.scheduledevelop.core.entity.Schedule;
 import com.example.scheduledevelop.member.repository.MemberRepository;
+import com.example.scheduledevelop.schedule.dto.SchedulePageResponseDto;
 import com.example.scheduledevelop.schedule.dto.ScheduleResponseDto;
 import com.example.scheduledevelop.schedule.dto.ScheduleSaveRequestDto;
 import com.example.scheduledevelop.schedule.dto.ScheduleUpdateRequestDto;
 import com.example.scheduledevelop.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,9 +48,21 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ScheduleResponseDto> findAll() {
-        List<Schedule> scheduleList = scheduleRepository.findAll();
-        return ScheduleResponseDto.buildDtoList(scheduleList);
+    public Page<SchedulePageResponseDto> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Schedule> schedulePage = scheduleRepository.findAll(pageable);
+        return schedulePage.map(schedule -> {
+            Member member = schedule.getMember();
+            Long commentCount = (long) schedule.getComments().size();
+            return SchedulePageResponseDto.builder()
+                    .title(schedule.getTitle())
+                    .content(schedule.getContent())
+                    .author(member.getName())
+                    .commentCount(commentCount)
+                    .createdAt(schedule.getCreatedAt())
+                    .modifiedAt(schedule.getModifiedAt())
+                    .build();
+        });
     }
 
     @Transactional

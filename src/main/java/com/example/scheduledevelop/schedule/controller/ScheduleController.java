@@ -1,11 +1,13 @@
 package com.example.scheduledevelop.schedule.controller;
 
+import com.example.scheduledevelop.schedule.dto.SchedulePageResponseDto;
 import com.example.scheduledevelop.schedule.dto.ScheduleResponseDto;
 import com.example.scheduledevelop.schedule.dto.ScheduleSaveRequestDto;
 import com.example.scheduledevelop.schedule.dto.ScheduleUpdateRequestDto;
 import com.example.scheduledevelop.schedule.service.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,8 +34,9 @@ public class ScheduleController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ScheduleResponseDto>> findAll(){
-        List<ScheduleResponseDto> scheduleResponseDto = scheduleService.findAll();
+    public ResponseEntity<Page<SchedulePageResponseDto>> findAll(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                                 @RequestParam(value = "size", defaultValue = "10") int size){
+        Page<SchedulePageResponseDto> scheduleResponseDto = scheduleService.findAll(page, size);
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }
 
