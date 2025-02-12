@@ -1,16 +1,16 @@
 package com.example.scheduledevelop.schedule.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import org.hibernate.validator.constraints.Range;
 
 @Getter
 public class ScheduleUpdateRequestDto {
 
-    @NotBlank
-    @Range(max = 20)
+    @NotBlank(message = "제목은 필수 입력값입니다.")
+    @Size(max = 20)
     private final String title;
-    @NotBlank
+    @NotBlank(message = "내용은 필수 입력값입니다.")
     private final String content;
 
     public ScheduleUpdateRequestDto(String title, String content) {

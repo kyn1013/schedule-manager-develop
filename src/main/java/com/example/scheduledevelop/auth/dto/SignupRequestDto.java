@@ -2,8 +2,8 @@ package com.example.scheduledevelop.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import org.hibernate.validator.constraints.Range;
 
 @Getter
 public class SignupRequestDto {
@@ -16,7 +16,7 @@ public class SignupRequestDto {
     private final String email;
 
     @NotBlank(message = "비밀번호는 필수 입력값입니다.")
-    @Range(max = 10, message = "비밀번호는 10자 이하로 해주세요.")
+    @Size(max = 10, message = "비밀번호는 10자 이하로 해주세요.")
     private final String password;
 
     public SignupRequestDto(String name, String email, String password) {
