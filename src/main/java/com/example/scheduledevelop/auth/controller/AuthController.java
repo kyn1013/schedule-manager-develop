@@ -5,9 +5,10 @@ import com.example.scheduledevelop.auth.dto.LoginResponseDto;
 import com.example.scheduledevelop.auth.dto.SignupRequestDto;
 import com.example.scheduledevelop.auth.dto.SignupResponseDto;
 import com.example.scheduledevelop.auth.service.AuthService;
-import com.example.scheduledevelop.core.common.Const;
+import com.example.scheduledevelop.core.common.constants.Const;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponseDto> signUp(@RequestBody SignupRequestDto requestDto){
+    public ResponseEntity<SignupResponseDto> signUp(@Valid @RequestBody SignupRequestDto requestDto){
         SignupResponseDto signupResponseDto = authService.signUp(requestDto);
         return new ResponseEntity<>(signupResponseDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest servletRequest){
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletRequest servletRequest){
         LoginResponseDto responseDto = authService.login(loginRequestDto);
         HttpSession session = servletRequest.getSession();
         session.setAttribute(Const.LOGIN_USER, responseDto);

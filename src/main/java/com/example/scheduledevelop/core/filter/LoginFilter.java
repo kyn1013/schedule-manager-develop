@@ -1,5 +1,6 @@
 package com.example.scheduledevelop.core.filter;
 
+import com.example.scheduledevelop.core.common.exception.InvalidPasswordException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,10 +30,8 @@ public class LoginFilter implements Filter {
             // 세션이 존재하지 않는다면 생성하지 않음 (= 로그인을 하지 않았다는 의미)
             HttpSession session = httpServletRequest.getSession(false);
             if (session == null || session.getAttribute("loginUser") == null) {
-                throw new RuntimeException("로그인을 진행해 주세요.");
+                throw new InvalidPasswordException();
             }
-
-            log.info("로그인이 되어있는 경우라서 pass");
         }
 
         // 더 이상 호출할 필터가 없으면 Servlet 바로 호출

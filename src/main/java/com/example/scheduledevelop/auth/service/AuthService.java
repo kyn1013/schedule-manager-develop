@@ -4,6 +4,7 @@ import com.example.scheduledevelop.auth.dto.LoginRequestDto;
 import com.example.scheduledevelop.auth.dto.LoginResponseDto;
 import com.example.scheduledevelop.auth.dto.SignupRequestDto;
 import com.example.scheduledevelop.auth.dto.SignupResponseDto;
+import com.example.scheduledevelop.core.common.exception.MemberNotFoundException;
 import com.example.scheduledevelop.core.entity.Member;
 import com.example.scheduledevelop.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class AuthService {
     }
 
     public LoginResponseDto login(LoginRequestDto requestDto){
-        Member member = memberRepository.findByEmail(requestDto.getEmail()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Member member = memberRepository.findByEmail(requestDto.getEmail()).orElseThrow(() -> new MemberNotFoundException());
         if (member.getPassword().equals(requestDto.getPassword())){
             return new LoginResponseDto(member.getId());
         } else {

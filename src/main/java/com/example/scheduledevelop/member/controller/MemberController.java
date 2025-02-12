@@ -6,6 +6,7 @@ import com.example.scheduledevelop.core.entity.Member;
 import com.example.scheduledevelop.member.dto.MemberResponseDto;
 import com.example.scheduledevelop.member.dto.MemberUpdateRequestDto;
 import com.example.scheduledevelop.member.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class MemberController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<MemberResponseDto> update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto updateRequestDto){
+    public ResponseEntity<MemberResponseDto> update(@PathVariable Long id, @Valid @RequestBody MemberUpdateRequestDto updateRequestDto){
         MemberResponseDto memberResponseDto = memberService.update(id, updateRequestDto);
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }

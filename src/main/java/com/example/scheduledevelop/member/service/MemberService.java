@@ -1,5 +1,6 @@
 package com.example.scheduledevelop.member.service;
 
+import com.example.scheduledevelop.core.common.exception.MemberNotFoundException;
 import com.example.scheduledevelop.core.entity.Member;
 import com.example.scheduledevelop.member.dto.MemberResponseDto;
 import com.example.scheduledevelop.member.dto.MemberUpdateRequestDto;
@@ -18,7 +19,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     public MemberResponseDto findById(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException());
         return MemberResponseDto.buildDto(member);
     }
 
@@ -29,14 +30,14 @@ public class MemberService {
 
     @Transactional
     public MemberResponseDto update(Long id, MemberUpdateRequestDto updateRequestDto) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException());
         member.updateMember(updateRequestDto.getName(), updateRequestDto.getEmail());
         return MemberResponseDto.buildDto(member);
     }
 
 
     public void delete(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException());
         memberRepository.delete(member);
     }
 }
