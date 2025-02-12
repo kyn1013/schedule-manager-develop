@@ -18,11 +18,14 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException());
         return MemberResponseDto.buildDto(member);
     }
 
+    @Transactional(readOnly = true)
     public List<MemberResponseDto> findAll() {
         List<Member> memberList = memberRepository.findAll();
         return MemberResponseDto.buildDtoList(memberList);
@@ -35,7 +38,7 @@ public class MemberService {
         return MemberResponseDto.buildDto(member);
     }
 
-
+    @Transactional
     public void delete(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new MemberNotFoundException());
         memberRepository.delete(member);

@@ -1,8 +1,5 @@
 package com.example.scheduledevelop.member.controller;
 
-import com.example.scheduledevelop.auth.dto.SignupRequestDto;
-import com.example.scheduledevelop.auth.dto.SignupResponseDto;
-import com.example.scheduledevelop.core.entity.Member;
 import com.example.scheduledevelop.member.dto.MemberResponseDto;
 import com.example.scheduledevelop.member.dto.MemberUpdateRequestDto;
 import com.example.scheduledevelop.member.service.MemberService;

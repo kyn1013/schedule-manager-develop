@@ -18,3 +18,15 @@ CREATE TABLE schedule
     updated_at TIMESTAMP NOT NULL COMMENT '수정일',
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
+
+CREATE TABLE comment
+(
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '댓글 식별자',
+    member_id  BIGINT COMMENT '작성자 식별자',
+    schedule_id  BIGINT COMMENT '일정 식별자',
+    content    TEXT NOT NULL COMMENT '댓글 내용',
+    created_at TIMESTAMP NOT NULL COMMENT '작성일',
+    updated_at TIMESTAMP NOT NULL COMMENT '수정일',
+    FOREIGN KEY (member_id) REFERENCES member(id),
+    FOREIGN KEY (schedule_id) REFERENCES schedule(id)
+);

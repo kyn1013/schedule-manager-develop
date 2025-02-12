@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "schedule")
@@ -23,6 +26,9 @@ public class Schedule extends BaseEntity{
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
+
     @Builder
     public Schedule(String title, String content) {
         this.title = title;
@@ -41,4 +47,7 @@ public class Schedule extends BaseEntity{
         this.content = content;
     }
 
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    }
 }

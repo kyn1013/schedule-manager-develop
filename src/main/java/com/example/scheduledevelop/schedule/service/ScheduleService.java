@@ -23,6 +23,8 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
     private final MemberRepository memberRepository;
+
+    @Transactional
     public ScheduleResponseDto save(ScheduleSaveRequestDto requestDto) {
         Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(() -> new MemberNotFoundException());
         Schedule schedule = Schedule.builder()
@@ -35,11 +37,13 @@ public class ScheduleService {
         return ScheduleResponseDto.buildDto(savedSchedule);
     }
 
+    @Transactional(readOnly = true)
     public ScheduleResponseDto findById(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new ScheduleNotFoundException());
         return ScheduleResponseDto.buildDto(schedule);
     }
 
+    @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findAll() {
         List<Schedule> scheduleList = scheduleRepository.findAll();
         return ScheduleResponseDto.buildDtoList(scheduleList);
@@ -52,6 +56,7 @@ public class ScheduleService {
         return ScheduleResponseDto.buildDto(schedule);
     }
 
+    @Transactional
     public void delete(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new ScheduleNotFoundException());
         scheduleRepository.delete(schedule);
