@@ -1,11 +1,13 @@
 package com.example.scheduledevelop.core.filter;
 
 import com.example.scheduledevelop.core.common.exception.InvalidPasswordException;
+import com.example.scheduledevelop.core.common.exception.UnauthorizedException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.PatternMatchUtils;
 
 import java.io.IOException;
@@ -30,7 +32,7 @@ public class LoginFilter implements Filter {
             // 세션이 존재하지 않는다면 생성하지 않음 (= 로그인을 하지 않았다는 의미)
             HttpSession session = httpServletRequest.getSession(false);
             if (session == null || session.getAttribute("loginUser") == null) {
-                throw new InvalidPasswordException();
+                throw new UnauthorizedException();
             }
         }
 

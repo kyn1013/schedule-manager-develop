@@ -4,6 +4,7 @@ import com.example.scheduledevelop.auth.dto.LoginRequestDto;
 import com.example.scheduledevelop.auth.dto.LoginResponseDto;
 import com.example.scheduledevelop.auth.dto.SignupRequestDto;
 import com.example.scheduledevelop.auth.dto.SignupResponseDto;
+import com.example.scheduledevelop.core.common.exception.InvalidPasswordException;
 import com.example.scheduledevelop.core.common.exception.MemberNotFoundException;
 import com.example.scheduledevelop.core.entity.Member;
 import com.example.scheduledevelop.member.repository.MemberRepository;
@@ -37,7 +38,7 @@ public class AuthService {
         if (member.getPassword().equals(requestDto.getPassword())){
             return new LoginResponseDto(member.getId());
         } else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            throw new InvalidPasswordException();
         }
     }
 }
