@@ -36,7 +36,7 @@ public class AuthService {
         if (member.getPassword().equals(requestDto.getPassword())){
             return new LoginResponseDto(member.getId());
         } else {
-            throw new RuntimeException("로그인 정보가 틀렸습니다.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 }
