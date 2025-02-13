@@ -8,8 +8,7 @@ public class CommentSaveRequestDto {
 
     @NotNull(message = "일정 id값은 필수입니다.")
     private Long scheduleId;
-    @NotNull(message = "사용자 id값은 필수입니다.")
-    private Long memberId;
+
     @NotNull(message = "댓글 내용은 필수입니다.")
     private String comment;
 

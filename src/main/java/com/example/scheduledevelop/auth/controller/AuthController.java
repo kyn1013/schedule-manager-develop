@@ -36,7 +36,7 @@ public class AuthController {
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletRequest servletRequest){
         LoginResponseDto responseDto = authService.login(loginRequestDto);
         HttpSession session = servletRequest.getSession();
-        session.setAttribute(Const.LOGIN_USER, responseDto);
+        session.setAttribute(Const.LOGIN_USER, responseDto.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

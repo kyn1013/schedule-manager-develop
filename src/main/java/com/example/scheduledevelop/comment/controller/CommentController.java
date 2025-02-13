@@ -4,6 +4,7 @@ import com.example.scheduledevelop.comment.dto.CommentSaveRequestDto;
 import com.example.scheduledevelop.comment.dto.CommentResponseDto;
 import com.example.scheduledevelop.comment.dto.CommentUpdateRequestDto;
 import com.example.scheduledevelop.comment.service.CommentService;
+import com.example.scheduledevelop.core.common.constants.Const;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping()
-    public ResponseEntity<CommentResponseDto> save(@RequestBody @Valid CommentSaveRequestDto requestDto){
-        CommentResponseDto commentResponseDto = commentService.save(requestDto);
+    public ResponseEntity<CommentResponseDto> save(@RequestBody @Valid CommentSaveRequestDto requestDto,
+                                                   @SessionAttribute(name = Const.LOGIN_USER) Long userId){
+        CommentResponseDto commentResponseDto = commentService.save(requestDto, userId);
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
     }
 
@@ -38,9 +40,16 @@ public class CommentController {
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<CommentResponseDto> update(@PathVariable Long id, @RequestBody @Valid CommentUpdateRequestDto requestDto){
-        CommentResponseDto commentResponseDto = commentService.update(id, requestDto);
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<CommentResponseDto> update(@PathVariable Long id, @RequestBody @Valid CommentUpdateRequestDto requestDto){
+//        CommentResponseDto commentResponseDto = commentService.update(id, requestDto);
+//        return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
+//    }
+
+    @PatchMapping()
+    public ResponseEntity<CommentResponseDto> update(@RequestBody @Valid CommentUpdateRequestDto requestDto,
+                                                     @SessionAttribute(name = Const.LOGIN_USER) Long userId){
+        CommentResponseDto commentResponseDto = commentService.update(userId, requestDto);
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
     }
 

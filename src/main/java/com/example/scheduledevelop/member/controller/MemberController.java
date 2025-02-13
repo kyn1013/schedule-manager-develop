@@ -1,5 +1,6 @@
 package com.example.scheduledevelop.member.controller;
 
+import com.example.scheduledevelop.core.common.constants.Const;
 import com.example.scheduledevelop.member.dto.MemberResponseDto;
 import com.example.scheduledevelop.member.dto.MemberUpdateRequestDto;
 import com.example.scheduledevelop.member.service.MemberService;
@@ -31,9 +32,10 @@ public class MemberController {
         return new ResponseEntity<>(memberResponseDtoList, HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<MemberResponseDto> update(@PathVariable Long id, @Valid @RequestBody MemberUpdateRequestDto updateRequestDto){
-        MemberResponseDto memberResponseDto = memberService.update(id, updateRequestDto);
+    @PatchMapping()
+    public ResponseEntity<MemberResponseDto> update(@Valid @RequestBody MemberUpdateRequestDto updateRequestDto,
+                                                    @SessionAttribute(name = Const.LOGIN_USER) Long userId){
+        MemberResponseDto memberResponseDto = memberService.update(userId, updateRequestDto);
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
 

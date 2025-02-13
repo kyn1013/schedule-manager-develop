@@ -28,8 +28,8 @@ public class CommentService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public CommentResponseDto save(CommentSaveRequestDto requestDto) {
-        Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(() -> new MemberNotFoundException());
+    public CommentResponseDto save(CommentSaveRequestDto requestDto, Long userId) {
+        Member member = memberRepository.findById(userId).orElseThrow(() -> new MemberNotFoundException());
         Schedule schedule = scheduleRepository.findById(requestDto.getScheduleId()).orElseThrow(() -> new ScheduleNotFoundException());
 
         Comment comment = Comment.builder()

@@ -29,8 +29,8 @@ public class ScheduleService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public ScheduleResponseDto save(ScheduleSaveRequestDto requestDto) {
-        Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(() -> new MemberNotFoundException());
+    public ScheduleResponseDto save(ScheduleSaveRequestDto requestDto, Long userId) {
+        Member member = memberRepository.findById(userId).orElseThrow(() -> new MemberNotFoundException());
         Schedule schedule = Schedule.builder()
                             .title(requestDto.getTitle())
                             .content(requestDto.getContent())
