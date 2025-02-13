@@ -97,17 +97,17 @@
 ##### MemberSaveRequestDto
 ```json
 {
-   "name": string,
-	"email" : string,
-	"password" : string
+    "name": string,
+    "email" : string,
+    "password" : string
 }
 ```
 
 ##### MemberUpdateRequestDto
 ```json
 {
-   "name": string,
-	"email" : string,
+    "name": string,
+    "email" : string,
 }
 ```
 
@@ -115,8 +115,8 @@
 ```json
 {
     "id": Long,
-   "name": string,
-	"email" : string,
+    "name": string,
+    "email" : string,
 }
 ```
 
@@ -125,28 +125,28 @@
 ##### ScheduleSaveRequestDto
 ```json
 {
-	"memberId": Long,
-    "title": String,
-    "content": String
+  "memberId": Long,
+  "title": String,
+  "content": String
 }
 ```
 
 ##### ScheduleUpdateRequestDto
 ```json
 {
-	"memberId": Long,
-	"title": string,
-	"content": string
+  "memberId": Long,
+  "title": string,
+  "content": string
 }
 ```
 
 ##### ScheduleResponseDto
 ```json
 {
-	"id": Long,
-	"author": string,
-	"title": string,
-	"content": string,
+  "id": Long,
+  "author": string,
+  "title": string,
+  "content": string,
 }
 ```
 
@@ -156,13 +156,13 @@
 	{
 	"id": Long,
 	"content": string,
-	“author”: string,
+	"author": string,
 	"title": string,
 	},
 	{
 	"id": Long,
 	"content": string,
-	“author”: string,
+	"author": string,
 	"title": string,
 }
 	// ...
@@ -206,24 +206,24 @@
 ##### CommentSaveRequestDto
 ```json
 {
-  "scheduleId": "Long",
-  "memberId": "Long",
-  "comment": "String"
+  "scheduleId": Long,
+  "memberId": Long,
+  "comment": String
 }
 ```
 
 ##### CommentResponseDto
 ```json
 {
-  "id": "Long",
-  "author": "String",
-  "comment": "String"
+  "id": Long,
+  "author": String,
+  "comment": String
 }
 ```
 
 ##### CommentUpdateRequestDto
 ```json
 {
-	"comment": "String"
+  "comment": String
 }
 ```
