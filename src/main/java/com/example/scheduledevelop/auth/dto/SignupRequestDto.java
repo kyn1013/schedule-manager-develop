@@ -9,19 +9,14 @@ import lombok.Getter;
 public class SignupRequestDto {
 
     @NotBlank(message = "이름은 필수 입력값입니다.")
-    private final String name;
+    private String name;
 
     @NotBlank(message = "이메일은 필수 입력값입니다.")
     @Email(message = "이메일 형식을 지켜주세요.")
-    private final String email;
+    private String email;
 
     @NotBlank(message = "비밀번호는 필수 입력값입니다.")
     @Size(max = 10, message = "비밀번호는 10자 이하로 해주세요.")
-    private final String password;
+    private String password;
 
-    public SignupRequestDto(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
 }
