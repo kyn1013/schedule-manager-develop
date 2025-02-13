@@ -37,6 +37,7 @@ public class AuthService {
         return SignupResponseDto.buildDto(savedMember);
     }
 
+    @Transactional
     public LoginResponseDto login(LoginRequestDto requestDto){
         String rawPassword = requestDto.getPassword();
         Member member = memberRepository.findByEmail(requestDto.getEmail()).orElseThrow(() -> new MemberNotFoundException());

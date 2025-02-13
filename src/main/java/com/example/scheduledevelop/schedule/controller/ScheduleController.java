@@ -34,7 +34,7 @@ public class ScheduleController {
     }
 
     @GetMapping()
-    public ResponseEntity<Page<SchedulePageResponseDto>> findAll(@RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<Page<SchedulePageResponseDto>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
                                                                  @RequestParam(value = "size", defaultValue = "10") int size){
         Page<SchedulePageResponseDto> scheduleResponseDto = scheduleService.findAll(page, size);
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
